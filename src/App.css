@@ -5,10 +5,10 @@ body {
     animation: flicker 0.15s infinite;
     background: linear-gradient(transparentize(#121010,1) 50%, transparentize(darken(#121010,10),0.75) 50%), linear-gradient(90deg,transparentize(#ff0000,0.94),transparentize(#00ff00,0.98),transparentize(#0000ff,0.94));
     z-index: 2;
-    background: #222;
+    background: rgb(34, 34, 34);
     font-family: 'VT323', monospace;
 
-    
+    margin: 100px;
     color: transparent;
     margin:0;
     font-size: 200%;
@@ -31,6 +31,7 @@ body {
     animation-duration: .066s;
     animation-name: crt;
     animation-timing-function:linear;
+    opacity: 0.5;
   }
   
 @keyframes crt{

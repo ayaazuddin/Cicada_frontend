@@ -6,17 +6,17 @@ function Terminal() {
 
     const questions = [
         {
-            question: "test1",
+            question: "question1",
             answer: "a",
             id: 0
         },
         {
-            question: "test2",
+            question: "question2",
             answer: "b",
             id: 1
         },
         {
-            question: "test3",
+            question: "question3",
             answer: "c",
             id: 2
         }
@@ -29,13 +29,14 @@ function Terminal() {
     const [Qid,setQid] = useState(questions[0]['id'])
     const [count,setCount] = useState(1)
     const [userInput,setUserInput] = useState([])
+    var test = "C:/User/TeamName: "
 
     const handleSubmit = e => {
     if (ans === questions[Qid]['answer'])
     {
         alert("right Answer")
-        userInput.push(ans)
-        console.log(userInput)
+        test = test.concat(String(ans))
+        userInput.push(test)
         setQid((Qid) => Qid + 1)
         setCount((count) => count + 1)
     }
@@ -68,8 +69,18 @@ function Terminal() {
 
             return (
                 <div className="Content">
-                {/* <div id="ascii">
+                    <hr class="dashed"></hr>
+                    <div className="header">
+                        
+                        <p>WELCOME TO CICADA 3301</p>
+                        <p>Let us begin.... shall we?</p>
 
+                    </div>
+                    <hr class="dashed"></hr>
+
+                {/* <div id="ascii">
+            
+            
 
          ++01100101 01110101++            =ඏ=             ++10101110 10100110++
        +011100110110   01001111000      0♢0Ŧ0♢0     00011110010   011011001110+
@@ -93,20 +104,21 @@ function Terminal() {
 
                 {ques.slice(0,count).map((q)=>
                     <div key={`que-${q.id}`} className="Question">
-                        C:/User/TeamName: {q.question}
+                        {q.question}
                         <br></br>
 
-                        C:/User/TeamName: {userInput[q.id]}
+                        {userInput[q.id]}
                         
                         
                     </div>
                 )}
-                  
+                <div className="Answer">
                   C:/User/TeamName: <input
                         onChange={handleChange}
                         onKeyPress={handleKeypress}
-                        autofocus
+                        autoFocus
                         />
+                    </div>
                 </div>
             )
 }
