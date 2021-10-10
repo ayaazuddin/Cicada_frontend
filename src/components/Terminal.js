@@ -1,81 +1,72 @@
-import React from 'react'
-import {useState} from 'react'
-import '../styles/Terminal.css'
+import React from "react";
+import { useState, useEffect } from "react";
+import "../styles/Terminal.css";
+// import song from '../audio/slowkey.mp3'
 
 function Terminal() {
-
-    const questions = [
-        {
-            question: "question1",
-            answer: "a",
-            id: 0
-        },
-        {
-            question: "question2",
-            answer: "b",
-            id: 1
-        },
-        {
-            question: "question3",
-            answer: "c",
-            id: 2
-        }
-    ]
-    
-    const [ques,setQues] = useState(questions)
-    const [ans,setAns] = useState(String)
-    const [Qid,setQid] = useState(questions[0]['id'])
-    const [count,setCount] = useState(1)
-    const [userInput,setUserInput] = useState([])
-    var test = "C:/User/TeamName: "
-
-
-    const correct = "Correct Answer"
-    const wrong = "Wrong Answer"
-
-    const handleSubmit = e => {
-    if (ans === questions[Qid]['answer'])
+  const questions = [
     {
-        alert("right Answer")
-        test = test.concat(String(ans))
-        userInput.push(test)
-        setQid((Qid) => Qid + 1)
-        setCount((count) => count + 1)
-    }
-    else if (Qid === questions.length)
+      question: "question1",
+      answer: "a",
+      id: 0,
+    },
     {
-        alert("End")
-    }
-    
-    else
+      question: "question2",
+      answer: "b",
+      id: 1,
+    },
     {
-        alert("wrong")
+      question: "question3",
+      answer: "c",
+      id: 2,
+    },
+  ];
+
+  const [ques, setQues] = useState(questions);
+  const [ans, setAns] = useState(String);
+  const [Qid, setQid] = useState(questions[0]["id"]);
+  const [count, setCount] = useState(1);
+  const [userInput, setUserInput] = useState([]);
+  var test = "C:/User/TeamName: ";
+
+  const correct = "Correct Answer";
+  const wrong = "Wrong Answer";
+
+  const handleSubmit = (e) => {
+    if (ans === questions[Qid]["answer"]) {
+      alert("right Answer");
+      test = test.concat(String(ans));
+      userInput.push(test);
+      setQid((Qid) => Qid + 1);
+      setCount((count) => count + 1);
+      console.log(Qid);
+    } else {
+      alert("wrong");
     }
-    // or you can send data to backend
-    };
+  };
 
+  const handleKeypress = (e) => {
+    if (e.key === "Enter") {
+      handleSubmit();
+    }
+  };
 
-    const handleKeypress = e => {
-        
-        if (e.key === "Enter") {
-            handleSubmit();
-        }
-    };
+  const handleChange = (e) => {
+    setAns(e.target.value);
+  };
 
-  
-    const handleChange = e => {
-        setAns(e.target.value);
-      };
-
-            return (
-                <div className="Content">
-                    <hr class="dashed"></hr>
-                    <hr class="dashed"></hr>
-                    <div className="header">
-                        
-                        <p>WELCOME TO CICADA 3302</p>
-                        <p>Let us begin.... shall we?</p>
-                        <div id="ascii"><code>{`
+  if (Qid === Object.keys(questions).length) {
+    return <div>done</div>;
+  } else {
+    return (
+      <div className="Content">
+        <hr class="dashed"></hr>
+        <hr class="dashed"></hr>
+        <div className="header">
+          <p>WELCOME TO CICADA 3302</p>
+          <p>Let us begin.... shall we?</p>
+          <div id="ascii">
+            <code>{`
             
             
 
@@ -98,38 +89,32 @@ function Terminal() {
                                           : :
                                           
                                           
-                                          `}</code></div>
+                                          `}</code>
+          </div>
+        </div>
+        <hr class="dashed"></hr>
+        <hr class="dashed"></hr>
 
-                    </div>
-                    <hr class="dashed"></hr>
-                    <hr class="dashed"></hr>
+        {ques.slice(0, count).map((q) => (
+          <div key={`que-${q.id}`} className="Question">
+            {q.question}
+            <br></br>
 
-                
-                                    
+            {userInput[q.id]}
+          </div>
+        ))}
 
-                {ques.slice(0,count).map((q)=>
-                    <div key={`que-${q.id}`} className="Question">
-                        {q.question}
-                        <br></br>
-
-                        {userInput[q.id]}
-                        
-                        
-                    </div>
-                )}
-                
-                <div className="Answer" key={`ans-${Qid}`}>
-                  C:/User/TeamName: <input
-                        onChange={handleChange}
-                        onKeyPress={handleKeypress}
-                        autoFocus
-                        />
-                    </div>
-                    
-                </div>
-            )
+        <div className="Answer" key={`ans-${Qid}`}>
+          C:/User/TeamName:
+          <input
+            onChange={handleChange}
+            onKeyPress={handleKeypress}
+            autoFocus
+          />
+        </div>
+      </div>
+    );
+  }
 }
 
-
-
-export default Terminal
+export default Terminal;

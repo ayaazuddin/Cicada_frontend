@@ -1,65 +1,53 @@
 @keyframes cursor {
-    5% {
-      text-shadow:
-      0 0 0px rgba(255,255,255,0.4),
-      0 0 1px rgba(0,255,0,1),
-      0 0 2px rgba(0,255,0,0.5),
-      3px 0 6px rgba(0,255,0,0.3),
-      -3px 0 6px rgba(0,255,0,0.3),
-      5px 0 8px rgba(0,255,0,0.1),
-      -5px 0 8px rgba(0,255,0,0.1);
-    }
-    45% {
-      text-shadow:
-      0 0 0px rgba(255,255,255,0.4),
-      0 0 1px rgba(0,255,0,1),
-      0 0 2px rgba(0,255,0,0.5),
-      3px 0 6px rgba(0,255,0,0.3),
-      -3px 0 6px rgba(0,255,0,0.3),
-      5px 0 8px rgba(0,255,0,0.1),
-      -5px 0 8px rgba(0,255,0,0.1);
-    }
-    55% {
-      text-shadow:
-        0 0 0px rgba(128,255,0,0),
-        0 0 1px rgba(0,255,0,0),
-        0 0 2px rgba(0,255,0,0);
-    }
-    95% {
-      text-shadow:
-        0 0 0px rgba(128,255,0,0),
-        0 0 1px rgba(0,255,0,0),
-        0 0 2px rgba(0,255,0,0);
-    }
+  5% {
+    text-shadow: 0 0 0px rgba(255, 255, 255, 0.4), 0 0 1px rgba(0, 255, 0, 1),
+      0 0 2px rgba(0, 255, 0, 0.5), 3px 0 6px rgba(0, 255, 0, 0.3),
+      -3px 0 6px rgba(0, 255, 0, 0.3), 5px 0 8px rgba(0, 255, 0, 0.1),
+      -5px 0 8px rgba(0, 255, 0, 0.1);
   }
-
-.cursor {
-    display: inline-block;
-    position: relative;
-    top: 0.05em;
-    left: -0.05em;
-    transform : scale(0.7,0.8);
-    -webkit-animation-name: cursor;
-    -webkit-animation-duration: 1s;
-    -webkit-animation-iteration-count: infinite;
-    animation-name: cursor;
-    animation-duration: 1s;
-    animation-iteration-count: infinite;
+  45% {
+    text-shadow: 0 0 0px rgba(255, 255, 255, 0.4), 0 0 1px rgba(0, 255, 0, 1),
+      0 0 2px rgba(0, 255, 0, 0.5), 3px 0 6px rgba(0, 255, 0, 0.3),
+      -3px 0 6px rgba(0, 255, 0, 0.3), 5px 0 8px rgba(0, 255, 0, 0.1),
+      -5px 0 8px rgba(0, 255, 0, 0.1);
   }
-
-#ascii {
-    font-family: monospace;
-    white-space: pre;
-    font-size: 9px;
+  55% {
+    text-shadow: 0 0 0px rgba(128, 255, 0, 0), 0 0 1px rgba(0, 255, 0, 0),
+      0 0 2px rgba(0, 255, 0, 0);
+  }
+  95% {
+    text-shadow: 0 0 0px rgba(128, 255, 0, 0), 0 0 1px rgba(0, 255, 0, 0),
+      0 0 2px rgba(0, 255, 0, 0);
+  }
 }
 
-.header{
+.cursor {
+  display: inline-block;
+  position: relative;
+  top: 0.05em;
+  left: -0.05em;
+  transform: scale(0.7, 0.8);
+  -webkit-animation-name: cursor;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-iteration-count: infinite;
+  animation-name: cursor;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+}
+
+#ascii {
+  font-family: monospace;
+  white-space: pre;
+  font-size: 9px;
+}
+
+.header {
   display: flex;
   align-items: center;
   flex-direction: column;
 }
 
-.Question{
+.Question {
   opacity: 0;
   -webkit-animation: type2 5s steps(40, end);
   animation: type2 4s steps(40, end);
@@ -69,20 +57,20 @@
   animation-fill-mode: forwards;
 }
 
-.Answer{
-    opacity: 0;
-    -webkit-animation: type2 5s steps(40, end);
-    animation: type2 4s steps(40, end);
-    -webkit-animation-delay: 5s;
-    animation-delay: 4s;
-    -webkit-animation-fill-mode: forwards;
-    animation-fill-mode: forwards;
+.Answer {
+  opacity: 0;
+  -webkit-animation: type2 5s steps(40, end);
+  animation: type2 4s steps(40, end);
+  -webkit-animation-delay: 5s;
+  animation-delay: 4s;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
 }
 
-.header p{
+.header p {
   white-space: nowrap;
   overflow: hidden;
-  border-right: .15em solid rgb(103,252,103);
+  border-right: 0.15em solid rgb(103, 252, 103);
 }
 
 .header p:nth-child(1) {
@@ -103,7 +91,6 @@
   -webkit-animation-fill-mode: forwards;
   animation-fill-mode: forwards;
 }
-
 
 @keyframes glitch1 {
   0% {
@@ -160,97 +147,90 @@
   }
 }
 
+input {
+  width: 800px;
+  font-family: "VT323", monospace;
+  border: 0px;
+  outline: none;
+  font-size: 90%;
+  color: rgb(103, 252, 103);
+  font-weight: normal;
+  line-height: 1.3;
+  text-shadow: 0 0 0px rgba(255, 255, 255, 0.4), 0 0 1px rgba(0, 255, 0, 1),
+    0 0 2px rgba(0, 255, 0, 0.5), 3px 0 6px rgba(0, 255, 0, 0.3),
+    -3px 0 6px rgba(0, 255, 0, 0.3), 5px 0 8px rgba(0, 255, 0, 0.1),
+    -5px 0 8px rgba(0, 255, 0, 0.1);
+  background-color: #222;
+}
 
+@keyframes type {
+  0% {
+    width: 0;
+  }
+  99.9% {
+    border-right: 0.15em solid rgb(103, 252, 103);
+  }
+  100% {
+    border: none;
+  }
+}
 
-input{
-    width:800px;
-    font-family: 'VT323', monospace;
-    border: 0px;
-    outline: none;
-    font-size: 90%;
-    color: rgb(103,252,103);
-      font-weight: normal;
-      line-height: 1.3;
-      text-shadow:
-          0 0 0px rgba(255,255,255,0.4),
-          0 0 1px rgba(0,255,0,1),
-          0 0 2px rgba(0,255,0,0.5),
-          3px 0 6px rgba(0,255,0,0.3),
-          -3px 0 6px rgba(0,255,0,0.3),
-          5px 0 8px rgba(0,255,0,0.1),
-          -5px 0 8px rgba(0,255,0,0.1);
-      background-color: #222;
+@-webkit-keyframes type {
+  0% {
+    width: 0;
   }
+  99.9% {
+    border-right: 0.15em solid rgb(103, 252, 103);
+  }
+  100% {
+    border: none;
+  }
+}
 
-  @keyframes type {
-    0% {
-      width: 0;
-    }
-    99.9% {
-      border-right: .15em solid rgb(103,252,103);
-    }
-    100% {
-      border: none;
-    }
+@keyframes type2 {
+  0% {
+    width: 0;
   }
-  
-  @-webkit-keyframes type {
-    0% {
-      width: 0;
-    }
-    99.9% {
-      border-right: .15em solid rgb(103,252,103);
-    }
-    100% {
-      border: none;
-    }
+  1% {
+    opacity: 1;
   }
-  
-  @keyframes type2 {
-    0% {
-      width: 0;
-    }
-    1% {
-      opacity: 1;
-    }
-    99.9% {
-      border-right: .15em solid rgb(103,252,103);
-    }
-    100% {
-      opacity: 1;
-      border: none;
-    }
+  99.9% {
+    border-right: 0.15em solid rgb(103, 252, 103);
   }
-  
-  hr.dashed {
-    border-top: 3px dashed rgb(103,252,103);
-    border-bottom: none;
+  100% {
+    opacity: 1;
+    border: none;
   }
+}
 
+hr.dashed {
+  border-top: 3px dashed rgb(103, 252, 103);
+  border-bottom: none;
+}
 
-  @-webkit-keyframes type2 {
-    0% {
-      width: 0;
-    }
-    1% {
-      opacity: 1;
-    }
-    99.9% {
-      border-right: .15em solid rgb(103,252,103);
-    }
-    100% {
-      opacity: 1;
-      border: none;
-    }
+@-webkit-keyframes type2 {
+  0% {
+    width: 0;
   }
-  
-  @keyframes blink {
-    50% {
-      border-color: transparent;
-    }
+  1% {
+    opacity: 1;
   }
-  @-webkit-keyframes blink {
-    50% {
-      border-color: tranparent;
-    }
+  99.9% {
+    border-right: 0.15em solid rgb(103, 252, 103);
   }
+  100% {
+    opacity: 1;
+    border: none;
+  }
+}
+
+@keyframes blink {
+  50% {
+    border-color: transparent;
+  }
+}
+@-webkit-keyframes blink {
+  50% {
+    border-color: tranparent;
+  }
+}

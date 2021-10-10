@@ -1,13 +1,11 @@
-
-import './App.css';
-import Terminal from './components/Terminal';
-
+import "./App.css";
+import Terminal from "./components/Terminal";
 
 function App() {
   return (
     <div className="App">
-      <hr  id="rasterline"></hr>
-      <Terminal/>
+      <hr id="rasterline"></hr>
+      <Terminal />
     </div>
   );
 }
