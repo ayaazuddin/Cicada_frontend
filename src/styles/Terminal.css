@@ -50,6 +50,7 @@
 #ascii {
     font-family: monospace;
     white-space: pre;
+    font-size: 9px;
 }
 
 .header{
@@ -61,9 +62,9 @@
 .Question{
   opacity: 0;
   -webkit-animation: type2 5s steps(40, end);
-  animation: type2 5s steps(40, end);
+  animation: type2 4s steps(40, end);
   -webkit-animation-delay: 5s;
-  animation-delay: 5s;
+  animation-delay: 4s;
   -webkit-animation-fill-mode: forwards;
   animation-fill-mode: forwards;
 }
@@ -71,9 +72,9 @@
 .Answer{
     opacity: 0;
     -webkit-animation: type2 5s steps(40, end);
-    animation: type2 5s steps(40, end);
+    animation: type2 4s steps(40, end);
     -webkit-animation-delay: 5s;
-    animation-delay: 5s;
+    animation-delay: 4s;
     -webkit-animation-fill-mode: forwards;
     animation-fill-mode: forwards;
 }
@@ -85,7 +86,7 @@
 }
 
 .header p:nth-child(1) {
-  width: 7.3em;
+  width: 9em;
   -webkit-animation: type 2s steps(40, end);
   animation: type 2s steps(40, end);
   -webkit-animation-fill-mode: forwards;

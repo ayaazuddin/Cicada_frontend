@@ -23,13 +23,15 @@ function Terminal() {
     ]
     
     const [ques,setQues] = useState(questions)
-
     const [ans,setAns] = useState(String)
-
     const [Qid,setQid] = useState(questions[0]['id'])
     const [count,setCount] = useState(1)
     const [userInput,setUserInput] = useState([])
     var test = "C:/User/TeamName: "
+
+
+    const correct = "Correct Answer"
+    const wrong = "Wrong Answer"
 
     const handleSubmit = e => {
     if (ans === questions[Qid]['answer'])
@@ -44,6 +46,7 @@ function Terminal() {
     {
         alert("End")
     }
+    
     else
     {
         alert("wrong")
@@ -59,10 +62,7 @@ function Terminal() {
         }
     };
 
-    function resizeInput() {
-        this.style.width = this.value.length + "ch";
-    }
-
+  
     const handleChange = e => {
         setAns(e.target.value);
       };
@@ -70,15 +70,12 @@ function Terminal() {
             return (
                 <div className="Content">
                     <hr class="dashed"></hr>
+                    <hr class="dashed"></hr>
                     <div className="header">
                         
-                        <p>WELCOME TO CICADA 3301</p>
+                        <p>WELCOME TO CICADA 3302</p>
                         <p>Let us begin.... shall we?</p>
-
-                    </div>
-                    <hr class="dashed"></hr>
-
-                {/* <div id="ascii">
+                        <div id="ascii"><code>{`
             
             
 
@@ -86,8 +83,8 @@ function Terminal() {
        +011100110110   01001111000      0♢0Ŧ0♢0     00011110010   011011001110+
    +0110010001100101 0110000101100100   000卄000   0010011010000110 1010011000100110+
     +01101101011000010111001001101011++00+0卄00++++11010110010011101000011010110110+
-        0111001101100  0010110111001100100`⁆⁅´0010011001110110100  0011011001110
-              011001100 110000101110010++=`⁆⁅´=++010011101000011 001100110
+        0111001101100  0010110111001100100 ⁆⁅ 0010011001110110100  0011011001110
+              011001100 110000101110010++= ⁆⁅ =++010011101000011 001100110
                 +01 10100001100101011 10010ʞk01001 11010100110000101 10+
                      +0111010001101111  +01ʞk10+  1111011000101110+
                          +110101011011  00.∴.00  110110101011+
@@ -96,10 +93,18 @@ function Terminal() {
                             +1110010   +0+.∴.+0+   0100111+
                               +1110100  01 ∴ 10  0010111+
                                         10 ∴ 01
-                                        10`∵´01
+                                        10 ∵ 01
                                          00.00
                                           : :
-            </div> */}
+                                          
+                                          
+                                          `}</code></div>
+
+                    </div>
+                    <hr class="dashed"></hr>
+                    <hr class="dashed"></hr>
+
+                
                                     
 
                 {ques.slice(0,count).map((q)=>
@@ -112,13 +117,15 @@ function Terminal() {
                         
                     </div>
                 )}
-                <div className="Answer">
+                
+                <div className="Answer" key={`ans-${Qid}`}>
                   C:/User/TeamName: <input
                         onChange={handleChange}
                         onKeyPress={handleKeypress}
                         autoFocus
                         />
                     </div>
+                    
                 </div>
             )
 }

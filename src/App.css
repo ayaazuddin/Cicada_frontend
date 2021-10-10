@@ -3,12 +3,9 @@
 
 body {
     animation: flicker 0.15s infinite;
-    background: linear-gradient(transparentize(#121010,1) 50%, transparentize(darken(#121010,10),0.75) 50%), linear-gradient(90deg,transparentize(#ff0000,0.94),transparentize(#00ff00,0.98),transparentize(#0000ff,0.94));
-    z-index: 2;
     background: rgb(34, 34, 34);
     font-family: 'VT323', monospace;
-
-    margin: 100px;
+    border: 100px #121010;
     color: transparent;
     margin:0;
     font-size: 200%;
@@ -24,7 +21,10 @@ body {
         -5px 0 8px rgba(0,255,0,0.1);
 }
 
-
+.App
+{
+  border: 100px #121010;
+}
 
 #rasterline{
     animation-iteration-count: infinite;
