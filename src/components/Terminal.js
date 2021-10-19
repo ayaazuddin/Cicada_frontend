@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "../styles/Terminal.css";
 // import song from '../audio/slowkey.mp3'
 

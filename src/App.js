@@ -1,13 +1,21 @@
 import "./App.css";
+import { Route, Switch } from "react-router-dom";
 import Terminal from "./components/Terminal";
+import Vplayer from "./components/Vplayer";
+import Error from "./components/Error";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
+    <>
       <hr id="rasterline"></hr>
-      <Terminal />
-    </div>
+
+      <Switch>
+        <Route exact path="/" component={Vplayer} />
+        <Route exact path="/terminal" component={Terminal} />
+        <Route component={Error} />
+      </Switch>
+    </>
   );
-}
+};
 
 export default App;
