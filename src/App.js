@@ -8,9 +8,10 @@ const App = () => {
   return (
     <>
       <hr id="rasterline"></hr>
+
       <Switch>
         <Route exact path="/" component={Vplayer} />
-        <Route path="/terminal" component={Terminal} />
+        <Route exact path="/terminal" component={Terminal} />
         <Route component={Error} />
       </Switch>
     </>

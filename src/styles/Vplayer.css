@@ -1,9 +1,9 @@
-.player-wrapper {
-  position: relative;
-}
+/* .active {
+  color: yellow;
+  text-align: center;
+} */
 
-.react-player {
-  position: absolute;
-  top: 0;
-  left: 0;
+.text {
+  text-align: center;
+  font-size: 2rem;
 }
