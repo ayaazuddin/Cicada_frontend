@@ -45,30 +45,12 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-}
-
-.Question {
-  opacity: 0;
-  -webkit-animation: type2 5s steps(40, end);
-  animation: type2 4s steps(40, end);
-  -webkit-animation-delay: 5s;
-  animation-delay: 4s;
-  -webkit-animation-fill-mode: forwards;
-  animation-fill-mode: forwards;
-}
-
-.Answer {
-  opacity: 0;
-  -webkit-animation: type2 5s steps(40, end);
-  animation: type2 4s steps(40, end);
-  -webkit-animation-delay: 5s;
-  animation-delay: 4s;
-  -webkit-animation-fill-mode: forwards;
-  animation-fill-mode: forwards;
+  height: 10%;
 }
 
 .header p {
   white-space: nowrap;
+  margin: 0;
   overflow: hidden;
   border-right: 0.15em solid rgb(103, 252, 103);
 }
@@ -90,61 +72,6 @@
   animation-delay: 2s;
   -webkit-animation-fill-mode: forwards;
   animation-fill-mode: forwards;
-}
-
-@keyframes glitch1 {
-  0% {
-    transform: none;
-    opacity: 1;
-  }
-  7% {
-    transform: skew(-0.5deg, -0.9deg);
-    opacity: 0.75;
-  }
-  10% {
-    transform: none;
-    opacity: 1;
-  }
-  27% {
-    transform: none;
-    opacity: 1;
-  }
-  30% {
-    transform: skew(0.8deg, -0.1deg);
-    opacity: 0.75;
-  }
-  35% {
-    transform: none;
-    opacity: 1;
-  }
-  52% {
-    transform: none;
-    opacity: 1;
-  }
-  55% {
-    transform: skew(-1deg, 0.2deg);
-    opacity: 0.75;
-  }
-  50% {
-    transform: none;
-    opacity: 1;
-  }
-  72% {
-    transform: none;
-    opacity: 1;
-  }
-  75% {
-    transform: skew(0.4deg, 1deg);
-    opacity: 0.75;
-  }
-  80% {
-    transform: none;
-    opacity: 1;
-  }
-  100% {
-    transform: none;
-    opacity: 1;
-  }
 }
 
 input {
@@ -221,16 +148,5 @@ hr.dashed {
   100% {
     opacity: 1;
     border: none;
-  }
-}
-
-@keyframes blink {
-  50% {
-    border-color: transparent;
-  }
-}
-@-webkit-keyframes blink {
-  50% {
-    border-color: tranparent;
   }
 }

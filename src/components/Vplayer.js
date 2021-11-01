@@ -12,7 +12,7 @@ const Vplayer = () => {
     <div className="player-wrapper">
       <div className="text">
         Click to get trapped <br />
-        <NavLink exact activeClassName="active_class" to="/terminal">
+        <NavLink exact activeClassName="active_class" to="/login">
           <FontAwesomeIcon icon={faSkullCrossbones} color="red" />
         </NavLink>
       </div>

@@ -1,7 +1,6 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import "../styles/Terminal.css";
-// import song from '../audio/slowkey.mp3'
 
 function Terminal() {
   const questions = [
@@ -29,21 +28,48 @@ function Terminal() {
   const [userInput, setUserInput] = useState([]);
   var test = "C:/User/TeamName: ";
 
+  const [showq, setShowq] = useState(true);
   const correct = "Correct Answer";
   const wrong = "Wrong Answer";
+  const [result, setresult] = useState("");
+  const [show, showResult] = useState(false);
 
   const handleSubmit = (e) => {
     if (ans === questions[Qid]["answer"]) {
-      alert("right Answer");
+      setresult(correct);
       test = test.concat(String(ans));
+      setTimeout(() => {
+        showResult(true);
+        setShowq(false);
+      }, 0);
+
+      setTimeout(() => {
+        showResult(false);
+        setShowq(true);
+      }, 2000);
+
       userInput.push(test);
       setQid((Qid) => Qid + 1);
       setCount((count) => count + 1);
       console.log(Qid);
     } else {
-      alert("wrong");
+      setresult(wrong);
+      setTimeout(() => {
+        showResult(true);
+        setShowq(false);
+      }, 1000);
+
+      setTimeout(() => {
+        showResult(false);
+        setShowq(true);
+      }, 2000);
     }
   };
+
+  // useEffect(() => {
+  //   var resu = document.getElementById("result");
+  //   resu.innerHTML = result;
+  // });
 
   const handleKeypress = (e) => {
     if (e.key === "Enter") {
@@ -56,7 +82,11 @@ function Terminal() {
   };
 
   if (Qid === Object.keys(questions).length) {
-    return <div>done</div>;
+    return (
+      <div>
+        <div id="result">DONE</div>
+      </div>
+    );
   } else {
     return (
       <div className="Content">
@@ -94,24 +124,29 @@ function Terminal() {
         </div>
         <hr class="dashed"></hr>
         <hr class="dashed"></hr>
-
-        {ques.slice(0, count).map((q) => (
-          <div key={`que-${q.id}`} className="Question">
-            {q.question}
-            <br></br>
-
-            {userInput[q.id]}
-          </div>
-        ))}
-
-        <div className="Answer" key={`ans-${Qid}`}>
-          C:/User/TeamName:
+        {showq
+          ? ques.slice(count - 1, count).map((q) => (
+              <div key={`que-${q.id}`} className="Question">
+                {q.question}
+                <div className="Answer" key={`ans-${Qid}`}>
+                  <input
+                    onChange={handleChange}
+                    onKeyPress={handleKeypress}
+                    autoFocus
+                  />
+                </div>
+              </div>
+            ))
+          : null}
+        <div id="result">{show ? result : null}</div>
+        {/* <div className="Answer" key={`ans-${Qid}`}>
           <input
             onChange={handleChange}
             onKeyPress={handleKeypress}
             autoFocus
           />
-        </div>
+          <div id="result">{show ? result : null}</div>
+        </div> */}
       </div>
     );
   }
