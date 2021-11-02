@@ -29,6 +29,7 @@ export const getCurrentQuestion = (script, setScript)=>{
         }
     })
     .catch((error)=>{
+        console.log(error)
         setScript([...script,{data:error,error:true}])
     })
 }
@@ -37,13 +38,19 @@ export const handleAnswer = (data, script, setScript)=>{
     instance.post('/answers/user/add/',data)
     .then((response)=>{
         console.log(response)
-        let newScript = [
-            ...script,
-            {
+        let newScript = [...script]
+        if(response.data.success){
+            newScript.push({
                 data:response.data.message,
-                error:response.data.data.answer.is_correct
-            },
-        ]
+                error:!response.data.data.answer.is_correct
+            })
+        }
+        else{
+            newScript.push({
+                data:response.data.message,
+                error:true
+            })
+        }
         if(response.data.data.next_question){
             newScript.push({
                 data:`Your next question is: 
@@ -60,6 +67,7 @@ export const handleAnswer = (data, script, setScript)=>{
         setScript(newScript)
     })
     .catch((error)=>{
+        console.log(error)
         setScript([...script,{data:error,error:true}])
     })
 }

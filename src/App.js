@@ -8,26 +8,27 @@ import LoginTerminal from "./components/LoginTerminal";
 import instance from "./axios";
 
 const App = () => {
-  const [token, setToken] = useState(null)
-  useEffect(()=>{
-    let local = localStorage.getItem("token")
-    if(local)
-    {
-      setToken(local)
-      instance.defaults.headers.common['Authorization'] = 'Bearer ' + token
-    }
-  })
-  useEffect(()=>{
+  const [token, setToken] = useState(localStorage.getItem("token"))
+
+  if(token){
     instance.defaults.headers.common['Authorization'] = 'Bearer ' + token
-  }, [token])
+  }
+  else{
+    delete instance.defaults.headers.common['Authorization']
+  }
+
+  // useEffect(()=>{
+  //   instance.defaults.headers.common['Authorization'] = 'Bearer ' + token
+  // }, [token])
+
   return (
     <>
       <hr id="rasterline"></hr>
 
       <Switch>
         <Route exact path="/" component={Vplayer} />
-        <Route exact path="/terminal" render={(props)=>(<Terminal setToken={setToken} {...props} setToken={setToken}/>)} />
-        <Route exact path="/login" render={(props)=><LoginTerminal setToken={setToken} {...props} setToken={setToken}/>} />
+        <Route exact path="/terminal" render={(props)=>(<Terminal {...props} token={token} setToken={setToken}/>)} />
+        <Route exact path="/login" render={(props)=><LoginTerminal {...props} setToken={setToken}/>} />
         <Route component={Error} />
       </Switch>
     </>

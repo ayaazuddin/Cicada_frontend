@@ -1,9 +1,10 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
+import { Redirect } from "react-router-dom";
 import { getCurrentQuestion, handleAnswer } from "../api";
 import "../styles/Terminal.css";
 
-function Terminal() {
+function Terminal({token, setToken}) {
 
   // const questions = [
   //   {
@@ -79,9 +80,15 @@ function Terminal() {
 
   const handleKeypress = (e) => {
     if (e.key === "Enter") {
-      handleAnswer({
-        "answer":ans
-      },script,setScript)
+      if(ans.trim() === "3301 logout"){
+        localStorage.removeItem("token")
+        setToken(null);
+      }
+      else{
+        handleAnswer({
+          "answer":ans
+        },script,setScript)
+      }
     }
   };
 
@@ -97,8 +104,8 @@ function Terminal() {
   //   );
   // } else {
     return (
-
-      <div className="Content">
+      !token? <Redirect to="/login"/>
+      :<div className="Content">
         <hr class="dashed"></hr>
         <hr class="dashed"></hr>
         <div className="header">
@@ -147,8 +154,8 @@ function Terminal() {
               </div>
             ))
           : null} */}
-        {script.map((each)=>
-        <div className="Question">
+        {script.map((each,index)=>
+        <div key={index} className={`Question ${each.error && "error"}`}>
         {each.data} <br></br>
         {`C:/Cicada> `}
         <input
