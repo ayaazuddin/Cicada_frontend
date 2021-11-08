@@ -35,18 +35,30 @@ export const handleLogin = (team,pass,setToken,history, setError) => {
       });
 };
 
-export const getCurrentQuestion = (script, setScript, setLoading)=>{
+export const getCurrentQuestion = (script, setScript, setLoading,setCompleted)=>{
     setLoading(true);
     instance.get('/questions/detail/current/')
     .then((response)=>{
         if (response.data.success === true){
-            setScript([
-                ...script,
-                {
-                    data:response.data.data.question,
-                    error:false
-                }
-            ])
+            if(response.data.data.completed){
+                setScript([
+                    ...script,
+                    {
+                        data:"***********YOU HAVE COMPLETED THE TEST****************",
+                        error:false
+                    }
+                ])
+                setCompleted(true);
+            }
+            else{
+                setScript([
+                    ...script,
+                    {
+                        data:response.data.data.current_question.question,
+                        error:false
+                    }
+                ])
+            }
         }
         else{
             setScript([
@@ -97,7 +109,7 @@ export const getHint = (script, setScript,setLoading)=>{
     })
 }
 
-export const handleAnswer = (data, script, setScript,setLoading)=>{
+export const handleAnswer = (data, script, setScript,setLoading,setCompleted)=>{
     setLoading(true);
     instance.post('/answers/user/add/',data)
     .then((response)=>{
@@ -127,6 +139,7 @@ export const handleAnswer = (data, script, setScript,setLoading)=>{
                 data:"***********YOU HAVE COMPLETED THE TEST****************",
                 error:false
             })
+            setCompleted(true);
         }
         setScript(newScript)
         setLoading(false);

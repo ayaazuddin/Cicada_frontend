@@ -8,14 +8,23 @@ function Terminal({token, setToken}) {
   const [script, setScript] = useState([])
   const [ans, setAns] = useState("");
   const [loading,setLoading] = useState(false);
+  const [completed,setCompleted] = useState(false);
+
+  const help = `
+   1. /help - To get the list of commands 
+   2. /hint - To get a hint for the question 
+   3. /question - To get your current question 
+   4. /logout - To logout of your account 
+   5. clear - To clear your screen.
+   `
 
   useEffect(()=>{
-    getCurrentQuestion(script,setScript,setLoading);
+    getCurrentQuestion(script,setScript,setLoading,setCompleted);
   },[])
   
   useEffect(()=>{
     window.scrollTo(0,document.body.scrollHeight);
-  },[script])
+  },[script,loading])
 
   const handleKeypress = (e) => {
     if (e.key === "Enter") {
@@ -39,12 +48,38 @@ function Terminal({token, setToken}) {
           getHint(newScript,setScript,setLoading)
           break;
 
+        case "/help":
+          setScript([
+            ...script,
+            {
+              data:help,
+              error:false
+            }
+          ])
+          break;
+        case "/question":
+          getCurrentQuestion(script,setScript,setLoading,setCompleted);
+          break;
+
+        case "clear":
+          setScript([])
+          getCurrentQuestion([],setScript,setLoading,setCompleted);
+          break;
+
         default:
-          handleAnswer({
-            "answer":ans
-          },newScript,setScript,setLoading)
+          if(!completed)
+            handleAnswer({
+              "answer":ans
+            },newScript,setScript,setLoading,setCompleted)
+          else
+            setScript([
+              ...script,
+              {
+                data:"Command not found. Please Try again.",
+                error:true
+              }
+            ])
       }
-      // setLoading(false);
     }
   };
 
@@ -88,6 +123,11 @@ function Terminal({token, setToken}) {
         </div>
         <hr class="dashed"></hr>
         <hr class="dashed"></hr>
+        <div >
+          {help}
+          <br></br>
+          <br />
+        </div>
         {script.map((each,index)=>
           <div key={index} className={`Question ${each.error && "error"}`}>
           {`C:/Cicada> `}

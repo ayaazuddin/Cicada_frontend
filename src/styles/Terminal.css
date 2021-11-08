@@ -20,7 +20,9 @@
       0 0 2px rgba(0, 255, 0, 0);
   }
 }
-
+div{
+  white-space: pre-wrap;
+}
 .cursor {
   display: inline-block;
   position: relative;
