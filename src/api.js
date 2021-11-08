@@ -1,40 +1,104 @@
 import instance from "./axios";
 import axios from "axios";
 
-export const handleLogin = async (team,pass,setToken,history) => {
+export const handleLogin = (team,pass,setToken,history, setError) => {
     axios
       .post("https://cicada-backend.herokuapp.com/login/", {
         username: team,
         password: pass,
       })
       .then((response) => {
-        console.log(response);
+        if(!response.data){
+            // console.log(response)
+            return null
+        }
         if(response.data.success === true){
           localStorage.setItem("token",response.data.data.token)
           setToken(response.data.data.token)
           history.push('/terminal')
+          setError(null)
+        }
+        else{
+            setError(response.data.error)
         }
       })
       .catch((error) => {
         console.log(error);
+        if(error.response)
+            setError(error.response.data.error)
+        else if(error.request)
+            setError("An error occoured while request")
+        else if(error.message)
+            setError(error.message)
+        else
+            setError(error)
       });
 };
 
-export const getCurrentQuestion = (script, setScript)=>{
+export const getCurrentQuestion = (script, setScript, setLoading)=>{
+    setLoading(true);
     instance.get('/questions/detail/current/')
     .then((response)=>{
-        console.log(response.data)
         if (response.data.success === true){
-            setScript([...script,{data:response.data.data.question,error:false}])
+            setScript([
+                ...script,
+                {
+                    data:response.data.data.question,
+                    error:false
+                }
+            ])
         }
+        else{
+            setScript([
+                ...script,
+                {
+                    data:response.data.message,
+                    error:true
+                }
+            ]) 
+        }
+        setLoading(false);
     })
     .catch((error)=>{
-        console.log(error)
+        setLoading(false);
         setScript([...script,{data:error,error:true}])
     })
 }
 
-export const handleAnswer = (data, script, setScript)=>{
+export const getHint = (script, setScript,setLoading)=>{
+    setLoading(true);
+    instance.get('/hint/')
+    .then((response)=>{
+        console.log(response.data)
+        if (response.data.success === true){
+            setScript([
+                ...script,
+                {
+                    data:response.data.message,
+                    error:false
+                }
+            ])
+        }
+        else{
+            setScript([
+                ...script,
+                {
+                    data:response.data.message,
+                    error:true
+                }
+            ]) 
+        }
+        setLoading(false);
+    })
+    .catch((error)=>{
+        console.log(error)
+        setScript([...script,{data:error,error:true}])
+        setLoading(false);
+    })
+}
+
+export const handleAnswer = (data, script, setScript,setLoading)=>{
+    setLoading(true);
     instance.post('/answers/user/add/',data)
     .then((response)=>{
         console.log(response)
@@ -65,9 +129,10 @@ export const handleAnswer = (data, script, setScript)=>{
             })
         }
         setScript(newScript)
+        setLoading(false);
     })
     .catch((error)=>{
-        console.log(error)
+        setLoading(false);
         setScript([...script,{data:error,error:true}])
     })
 }

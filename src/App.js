@@ -1,5 +1,5 @@
 import "./App.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Route, Switch } from "react-router-dom";
 import Terminal from "./components/Terminal";
 import Vplayer from "./components/Vplayer";

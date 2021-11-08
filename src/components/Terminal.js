@@ -1,108 +1,56 @@
 import React from "react";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
-import { getCurrentQuestion, handleAnswer } from "../api";
+import { getCurrentQuestion, getHint, handleAnswer } from "../api";
 import "../styles/Terminal.css";
 
 function Terminal({token, setToken}) {
-
-  // const questions = [
-  //   {
-  //     question: "question1",
-  //     answer: "a",
-  //     id: 0,
-  //   },
-  //   {
-  //     question: "question2",
-  //     answer: "b",
-  //     id: 1,
-  //   },
-  //   {
-  //     question: "question3",
-  //     answer: "c",
-  //     id: 2,
-  //   },
-  // ];
-
-  // const [ques, setQues] = useState(questions);
   const [script, setScript] = useState([])
-  const [ans, setAns] = useState(String);
-  const [count, setCount] = useState(1);
-  const [userInput, setUserInput] = useState([]);
-  var test = "C:/User/TeamName: ";
-
-  const [showq, setShowq] = useState(true);
-  const correct = "Correct Answer";
-  const wrong = "Wrong Answer";
-  const [result, setresult] = useState("");
-  const [show, showResult] = useState(false);
-
-  // const handleSubmit = (e) => {
-  //   if (ans === questions[Qid]["answer"]) {
-  //     setresult(correct);
-  //     test = test.concat(String(ans));
-  //     setTimeout(() => {
-  //       showResult(true);
-  //       setShowq(false);
-  //     }, 0);
-
-  //     setTimeout(() => {
-  //       showResult(false);
-  //       setShowq(true);
-  //     }, 2000);
-
-  //     userInput.push(test);
-  //     setQid((Qid) => Qid + 1);
-  //     setCount((count) => count + 1);
-  //     console.log(Qid);
-  //   } else {
-  //     setresult(wrong);
-  //     setTimeout(() => {
-  //       showResult(true);
-  //       setShowq(false);
-  //     }, 1000);
-
-  //     setTimeout(() => {
-  //       showResult(false);
-  //       setShowq(true);
-  //     }, 2000);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   var resu = document.getElementById("result");
-  //   resu.innerHTML = result;
-  // });
+  const [ans, setAns] = useState("");
+  const [loading,setLoading] = useState(false);
 
   useEffect(()=>{
-    getCurrentQuestion(script,setScript);
+    getCurrentQuestion(script,setScript,setLoading);
   },[])
+  
+  useEffect(()=>{
+    window.scrollTo(0,document.body.scrollHeight);
+  },[script])
 
   const handleKeypress = (e) => {
     if (e.key === "Enter") {
-      if(ans.trim() === "3301 logout"){
-        localStorage.removeItem("token")
-        setToken(null);
+      let newScript = [
+        ...script,
+        {
+          data:e.target.value,
+          error:false
+        }
+      ]
+      setScript(newScript)
+      setAns("");
+      let answer = ans.trim()
+      switch(answer){
+        case "/logout":
+          localStorage.removeItem("token")
+          setToken(null);
+          break;
+
+        case "/hint":
+          getHint(newScript,setScript,setLoading)
+          break;
+
+        default:
+          handleAnswer({
+            "answer":ans
+          },newScript,setScript,setLoading)
       }
-      else{
-        handleAnswer({
-          "answer":ans
-        },script,setScript)
-      }
+      // setLoading(false);
     }
   };
 
   const handleChange = (e) => {
     setAns(e.target.value);
   };
-
-  // if (Qid === Object.keys(questions).length) {
-  //   return (
-  //     <div>
-  //       <div id="result">DONE</div>
-  //     </div>
-  //   );
-  // } else {
     return (
       !token? <Redirect to="/login"/>
       :<div className="Content">
@@ -140,44 +88,30 @@ function Terminal({token, setToken}) {
         </div>
         <hr class="dashed"></hr>
         <hr class="dashed"></hr>
-        {/* {showq
-          ? ques.slice(count - 1, count).map((q) => (
-              <div key={`que-${q.id}`} className="Question">
-                {q.question}
-                <div className="Answer" key={`ans-${Qid}`}>
-                  <input
-                    onChange={handleChange}
-                    onKeyPress={handleKeypress}
-                    autoFocus
-                  />
-                </div>
-              </div>
-            ))
-          : null} */}
         {script.map((each,index)=>
-        <div key={index} className={`Question ${each.error && "error"}`}>
-        {each.data} <br></br>
+          <div key={index} className={`Question ${each.error && "error"}`}>
+          {`C:/Cicada> `}
+          {each.data} <br></br>
+          <br />
+          </div>
+        )}
+        {loading?
+        <div className={`Question`}>
+          {`C:/Cicada> Loading...`}
+          <br></br>
+          <br />
+        </div>
+        :<div className={`Question`}>
         {`C:/Cicada> `}
         <input
           onChange={handleChange}
+          value={ans}
           onKeyPress={handleKeypress}
           autoFocus
         />
         <br />
-        </div>
-        )}
-        <div id="result">{show ? result : null}</div>
-        {/* <div className="Answer" key={`ans-${Qid}`}>
-          <input
-            onChange={handleChange}
-            onKeyPress={handleKeypress}
-            autoFocus
-          />
-          <div id="result">{show ? result : null}</div>
-        </div> */}
+        </div>}
       </div>
     );
   }
-// }
-
 export default Terminal;

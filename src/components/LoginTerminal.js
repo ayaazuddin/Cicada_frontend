@@ -1,32 +1,30 @@
 import React from "react";
 import "../styles/Terminal.css";
-import { useState, useEffect, useRef } from "react";
-import instance from "../axios";
+import { useState } from "react";
 import { useHistory } from "react-router";
 import { handleLogin } from "../api";
+import { useFocus } from "../hooks/useFocus";
 
 function LoginTerminal({setToken}) {
   const [team, setTeam] = useState("");
   const [pass, setPass] = useState("");
   const [show, showpass] = useState(false);
+  const [error,setError] = useState(null);
+  const [inputRef, setInputRef] = useFocus();
   const history = useHistory();
 
   const handleKeypress1 = (e) => {
+    setTeam(e.target.value);
     if (e.key === "Enter") {
-      setTeam(e.target.value);
       showpass(true);
+      setInputRef();
     }
   };
 
-  useEffect(() => {
-    console.log(team);
-    console.log(pass);
-  });
-
   const handleKeypress2 = (e) => {
-    if (e.key === "Enter") {
-      setPass(e.target.value);
-      handleLogin(team,e.target.value,setToken,history);
+    setPass(e.target.value);
+    if (e.key === "Enter") {      
+      handleLogin(team,e.target.value,setToken,history,setError)
     }
   };
 
@@ -39,15 +37,22 @@ function LoginTerminal({setToken}) {
       <div className="question">
         Enter Team Name: <br></br>
         {`C:/Cicada> `}
-        <input onKeyPress={handleKeypress1} autoFocus />
+        <input onKeyPress={handleKeypress1} onChange={handleKeypress1} value={team} autoFocus />
         <br />
         {show ? (
           <div>
             Enter Password: <br></br>
             {`C:/Cicada> `}
-            <input onKeyPress={handleKeypress2} autoFocus />
+            <input onKeyPress={handleKeypress2} value={pass} onChange={handleKeypress2} ref={inputRef} autoFocus />
           </div>
         ) : null}
+        {
+          error &&
+          <div className="error">
+            <br/>
+            {error}
+          </div>
+        }
       </div>
     </div>
   );

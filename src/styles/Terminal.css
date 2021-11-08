@@ -90,6 +90,13 @@ input {
   background-color: #222;
 }
 
+.Question.error{
+  text-shadow: 0 0 0px rgba(255, 255, 255, 0.4), 0 0 1px rgb(228, 40, 7),
+  0 0 2px rgba(189, 27, 15, 0.5), 3px 0 6px rgba(204, 55, 18, 0.3),
+  -3px 0 6px rgba(218, 19, 19, 0.3), 5px 0 8px rgba(201, 28, 5, 0.1),
+  -5px 0 8px rgba(209, 17, 17, 0.1);
+}
+
 @keyframes type {
   0% {
     width: 0;

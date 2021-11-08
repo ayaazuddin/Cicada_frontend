@@ -17,15 +17,18 @@ instance.interceptors.response.use(
       localStorage.removeItem("token")
       return window.location.href = '/login'
     }
-    Promise.reject((error.response && error.response.data) || "Wrong Services")
+    else{
+      return error
+    }
+    // Promise.reject((error.response && error.response.data) || "Wrong Services")
   }
 );
 
-axios.interceptors.response.use(response => {
-  return response;
-}, error => {
+// axios.interceptors.response.use(response => {
+//   return response;
+// }, error => {
 
- return error;
-});
+//  return error;
+// });
 
 export default instance;
