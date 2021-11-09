@@ -10,19 +10,19 @@ import { faSkullCrossbones } from "@fortawesome/free-solid-svg-icons";
 const Vplayer = () => {
   return (
     <div className="player-wrapper">
-      <div className="text">
+      {/* <div className="text">
         Click to get trapped <br />
         <NavLink exact activeClassName="active_class" to="/login">
           <FontAwesomeIcon icon={faSkullCrossbones} color="red" />
         </NavLink>
-      </div>
+      </div> */}
       <ReactPlayer
         className="react-player"
         controls
         width="100%"
         height="100%"
         url={Cicada}
-        onEnded={() => console.log("onEnded callback")}
+        onEnded={() => (window.location.href = "/login")}
       />
     </div>
   );

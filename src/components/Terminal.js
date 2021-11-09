@@ -4,81 +4,87 @@ import { Redirect } from "react-router-dom";
 import { getCurrentQuestion, getHint, handleAnswer } from "../api";
 import "../styles/Terminal.css";
 
-function Terminal({token, setToken}) {
-  const [script, setScript] = useState([])
+function Terminal({ token, setToken }) {
+  const [script, setScript] = useState([]);
   const [ans, setAns] = useState("");
-  const [loading,setLoading] = useState(false);
-  const [completed,setCompleted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [completed, setCompleted] = useState(false);
 
   const help = `
    1. /help - To get the list of commands 
    2. /hint - To get a hint for the question 
    3. /question - To get your current question 
    4. /logout - To logout of your account 
-   5. clear - To clear your screen.
-   `
+   5. /clear - To clear your screen.
+   `;
 
-  useEffect(()=>{
-    getCurrentQuestion(script,setScript,setLoading,setCompleted);
-  },[])
-  
-  useEffect(()=>{
-    window.scrollTo(0,document.body.scrollHeight);
-  },[script,loading])
+  useEffect(() => {
+    getCurrentQuestion(script, setScript, setLoading, setCompleted);
+  }, []);
+
+  useEffect(() => {
+    window.scrollTo(0, document.body.scrollHeight);
+  }, [script, loading]);
 
   const handleKeypress = (e) => {
     if (e.key === "Enter") {
       let newScript = [
         ...script,
         {
-          data:e.target.value,
-          error:false
-        }
-      ]
-      setScript(newScript)
+          data: e.target.value,
+          error: false,
+        },
+      ];
+      setScript(newScript);
       setAns("");
-      let answer = ans.trim()
-      switch(answer){
+      let answer = ans.trim();
+      switch (answer) {
         case "/logout":
-          localStorage.removeItem("token")
+          localStorage.removeItem("token");
           setToken(null);
           break;
 
         case "/hint":
-          getHint(newScript,setScript,setLoading)
+          getHint(newScript, setScript, setLoading);
           break;
 
         case "/help":
           setScript([
             ...script,
             {
-              data:help,
-              error:false
-            }
-          ])
+              data: help,
+              error: false,
+            },
+          ]);
           break;
         case "/question":
-          getCurrentQuestion(script,setScript,setLoading,setCompleted);
+          getCurrentQuestion(script, setScript, setLoading, setCompleted);
           break;
 
-        case "clear":
-          setScript([])
-          getCurrentQuestion([],setScript,setLoading,setCompleted);
+        case "/clear":
+          setScript([]);
+          getCurrentQuestion([], setScript, setLoading, setCompleted);
           break;
 
         default:
-          if(!completed)
-            handleAnswer({
-              "answer":ans
-            },newScript,setScript,setLoading,setCompleted)
+          if (!completed)
+            handleAnswer(
+              {
+                answer: ans,
+              },
+              newScript,
+              setScript,
+              setLoading,
+              setCompleted
+            );
           else
             setScript([
               ...script,
               {
-                data:"Command not found. Please Try again.",
-                error:true
-              }
-            ])
+                data: "Command not found. Please Try again.",
+                error: true,
+              },
+            ]);
       }
     }
   };
@@ -86,16 +92,17 @@ function Terminal({token, setToken}) {
   const handleChange = (e) => {
     setAns(e.target.value);
   };
-    return (
-      !token? <Redirect to="/login"/>
-      :<div className="Content">
-        <hr class="dashed"></hr>
-        <hr class="dashed"></hr>
-        <div className="header">
-          <p>WELCOME TO CICADA 3302</p>
-          <p>Let us begin.... shall we?</p>
-          <div id="ascii">
-            <code>{`
+  return !token ? (
+    <Redirect to="/login" />
+  ) : (
+    <div className="Content">
+      <hr class="dashed"></hr>
+      <hr class="dashed"></hr>
+      <div className="header">
+        <p>WELCOME TO CICADA 3302</p>
+        <p>Let us begin.... shall we?</p>
+        <div id="ascii">
+          <code>{`
             
             
 
@@ -119,39 +126,41 @@ function Terminal({token, setToken}) {
                                           
                                           
                                           `}</code>
-          </div>
         </div>
-        <hr class="dashed"></hr>
-        <hr class="dashed"></hr>
-        <div >
-          {help}
-          <br></br>
-          <br />
-        </div>
-        {script.map((each,index)=>
-          <div key={index} className={`Question ${each.error && "error"}`}>
+      </div>
+      <hr class="dashed"></hr>
+      <hr class="dashed"></hr>
+      <div>
+        {help}
+        <br></br>
+        <br />
+      </div>
+      {script.map((each, index) => (
+        <div key={index} className={`Question ${each.error && "error"}`}>
           {`C:/Cicada> `}
           {each.data} <br></br>
           <br />
-          </div>
-        )}
-        {loading?
+        </div>
+      ))}
+      {loading ? (
         <div className={`Question`}>
           {`C:/Cicada> Loading...`}
           <br></br>
           <br />
         </div>
-        :<div className={`Question`}>
-        {`C:/Cicada> `}
-        <input
-          onChange={handleChange}
-          value={ans}
-          onKeyPress={handleKeypress}
-          autoFocus
-        />
-        <br />
-        </div>}
-      </div>
-    );
-  }
+      ) : (
+        <div className={`Question`}>
+          {`C:/Cicada> `}
+          <input
+            onChange={handleChange}
+            value={ans}
+            onKeyPress={handleKeypress}
+            autoFocus
+          />
+          <br />
+        </div>
+      )}
+    </div>
+  );
+}
 export default Terminal;
