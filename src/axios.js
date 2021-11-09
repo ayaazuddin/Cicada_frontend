@@ -1,5 +1,6 @@
 import axios from "axios";
 const instance = axios.create({
+  // baseURL: "http://127.0.0.1:8000/",
   baseURL: "https://cicada-backend.herokuapp.com",
 });
 
@@ -17,15 +18,18 @@ instance.interceptors.response.use(
       localStorage.removeItem("token")
       return window.location.href = '/login'
     }
-    Promise.reject((error.response && error.response.data) || "Wrong Services")
+    else{
+      return error
+    }
+    // Promise.reject((error.response && error.response.data) || "Wrong Services")
   }
 );
 
-axios.interceptors.response.use(response => {
-  return response;
-}, error => {
+// axios.interceptors.response.use(response => {
+//   return response;
+// }, error => {
 
- return error;
-});
+//  return error;
+// });
 
 export default instance;
