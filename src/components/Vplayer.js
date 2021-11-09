@@ -2,10 +2,10 @@ import React from "react";
 import ReactPlayer from "react-player";
 import Cicada from "./cicada_intro.mp4";
 import "../styles/Vplayer.css";
-import { NavLink } from "react-router-dom";
+// import { NavLink } from "react-router-dom";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSkullCrossbones } from "@fortawesome/free-solid-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faSkullCrossbones } from "@fortawesome/free-solid-svg-icons";
 
 const Vplayer = () => {
   return (

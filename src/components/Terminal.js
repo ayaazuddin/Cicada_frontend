@@ -20,6 +20,7 @@ function Terminal({ token, setToken }) {
 
   useEffect(() => {
     getCurrentQuestion(script, setScript, setLoading, setCompleted);
+    //eslint-disable-next-line
   }, []);
 
   useEffect(() => {
